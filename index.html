@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Quiz App</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -14,20 +14,45 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=VT323"
-    />
   </head>
   <body>
     <div class="container">
-      <div class="d-flex justify-content-center">
-        <div class="start align-self-center">
-          <button class="btn btn-warning btn-lg">Start Quiz</button>
+      <div class="rows page">
+        <div class="btn_start">
+          <button class="btn button">Start Quiz</button>
+        </div>
+        <div class="card quiz-box">
+          <header class="card-header">
+            <div class="title">Quiz App</div>
+          </header>
+          <section class="card-body">
+            <div class="question_text">
+              <span
+                >Which one is javascript package management application?</span
+              >
+            </div>
+            <div class="option_list">
+              <div class="option">
+                <span>a: Node.js</span>
+                <div class="icon"><i class="fas fa-check"></i></div>
+              </div>
+              <div class="option">
+                <span>a: Typescript</span>
+                <div class="icon"><i class="fas fa-times"></i></div>
+              </div>
+              <div class="option correct">
+                <span>a: Npm</span>
+                <div class="icon"><i class="fas fa-times"></i></div>
+              </div>
+              <div class="option incorrect">
+                <span>a: Nuget</span>
+                <div class="icon"><i class="fas fa-times"></i></div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
-    <img src="assets/cloud.gif" alt="" />
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>

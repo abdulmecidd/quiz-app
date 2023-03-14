@@ -1,1 +1,66 @@
-/* VT323 -> Pixel Font */
+.btn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.page {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.quiz-box {
+  width: 32em;
+  background-color: #fefcf9;
+  opacity: 0;
+  pointer-events: none;
+}
+.quiz-box header {
+  background-color: #f6e1c3;
+}
+.quiz-box header .title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #71562f;
+}
+
+.quiz-box .question_text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #473419;
+}
+
+.quiz-box .option_list {
+  padding: 18px 0;
+}
+
+.quiz-box .option_list .option {
+  border: 1px solid #151d3b;
+  border-radius: 8px;
+  padding: 8px 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #faf0e1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quiz-box .option_list .option:hover {
+  color: #151d4c;
+  background-color: #f6e1c3;
+}
+
+.quiz-box .option_list .option.correct {
+  background-color: #c3f6e1;
+}
+.quiz-box .option_list .option.incorrect {
+  background-color: #ffbebe;
+}
+.quiz-box.active {
+  opacity: 1;
+  pointer-events: auto;
+}
