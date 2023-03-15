@@ -1,4 +1,4 @@
-.btn {
+.start_button {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -17,12 +17,22 @@
   opacity: 0;
   pointer-events: none;
 }
-.quiz-box header {
+.quiz-box header,
+.quiz-box .footer {
   background-color: #f6e1c3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .quiz-box header .title {
   font-size: 20px;
   font-weight: 600;
+  color: #71562f;
+}
+
+.quiz-box header .questionNumber {
+  font-size: 20px;
+  font-weight: 700;
   color: #71562f;
 }
 

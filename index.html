@@ -19,20 +19,16 @@
     <div class="container">
       <div class="rows page">
         <div class="btn_start">
-          <button class="btn button">Start Quiz</button>
+          <button id="startButton" class="btn start_button">Start Quiz</button>
         </div>
         <div class="card quiz-box">
-          <header class="card-header">
+          <header id="header" class="card-header">
             <div class="title">Quiz App</div>
           </header>
           <section class="card-body">
-            <div class="question_text">
-              <span
-                >Which one is javascript package management application?</span
-              >
-            </div>
+            <div class="question_text"></div>
             <div class="option_list">
-              <div class="option">
+              <!-- <div class="option">
                 <span>a: Node.js</span>
                 <div class="icon"><i class="fas fa-check"></i></div>
               </div>
@@ -47,9 +43,12 @@
               <div class="option incorrect">
                 <span>a: Nuget</span>
                 <div class="icon"><i class="fas fa-times"></i></div>
-              </div>
+              </div> -->
             </div>
           </section>
+          <footer class="card-footer footer">
+            <button class="btn nextButton">Next Question</button>
+          </footer>
         </div>
       </div>
     </div>
