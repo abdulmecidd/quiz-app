@@ -1,8 +1,27 @@
+.btn,
+.btn:hover,
+.btn:active,
+.btn:visited {
+  background-color: #f6e1c3 !important;
+}
 .start_button {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.quiz-box footer {
+  background-color: #f6e1c3;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.nextButton {
+  background-color: #f6e1c3;
+  border: 0;
+  color: #473419;
+  font-weight: 700;
+  font-size: 16px;
 }
 .page {
   position: fixed;
@@ -17,8 +36,7 @@
   opacity: 0;
   pointer-events: none;
 }
-.quiz-box header,
-.quiz-box .footer {
+.quiz-box header {
   background-color: #f6e1c3;
   display: flex;
   align-items: center;
