@@ -77,44 +77,40 @@ let questions = [
   ),
 ];
 
-function Quiz(question) {
-  this.questions = question;
-  this.questionId = 0;
-}
+let currentId = 0;
+let scorePoint = 0;
 
-Quiz.prototype.getQuestion = function () {
-  return this.questions[this.questionId];
+Question.prototype.checkAnswer = function (answer) {
+  return console.log(this.correctAnswer === answer);
 };
 
-const quiz = new Quiz(questions);
+const nextQuestion = () => {
+  if (currentId !== questions[8].questionId) {
+    currentId++;
+    showQuestion(currentId);
+  } else {
+  }
+};
+
+const showQuestion = (id) => {
+  const optionList = document.querySelector(".option_list");
+  const optionButton = document.querySelector("span");
+
+  let title = `<span> ${questions[id].questionTitle}`;
+  let options = "";
+  for (let i in questions[id].options) {
+    options += `
+    <div class="option">
+                <span id="answerOption">${questions[id].options[i]}</span>
+              </div>`;
+  }
+  document.querySelector(".question_text").innerHTML = title;
+  optionList.innerHTML = options;
+};
 
 startButton.addEventListener("click", () => {
   quizBox.classList.add("active");
-  let question = quiz.getQuestion();
-  showQuestion(question);
+  showQuestion(currentId);
 });
 
-nextButton.addEventListener("click", () => {
-  if (quiz.questions.length != quiz.questionId + 1) {
-    quizBox.classList.add("active");
-    let question = quiz.getQuestion();
-    quiz.questionId += 1;
-    showQuestion(question);
-  } else if (quiz.questionId === 10) {
-    nextButton.style.display = "none";
-  }
-});
-const showQuestion = (question) => {
-  let questionTitle = `<span>${question.questionTitle}</span>`;
-  let option = "";
-
-  for (let answer in question.options) {
-    option += `
-  <div class="option">
-  <span><b>${answer}</b>: ${question.options[answer]}</span>
-  </div>
-  `;
-  }
-  document.querySelector(".option_list").innerHTML = option;
-  document.querySelector(".question_text").innerHTML = questionTitle;
-};
+nextButton.addEventListener("click", nextQuestion);
