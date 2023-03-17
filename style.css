@@ -116,3 +116,23 @@
   opacity: 1;
   pointer-events: auto;
 }
+
+.quiz-box header .scoreBoard {
+  font-weight: 600;
+  color: #473419;
+}
+.result {
+  width: 32em;
+  background-color: #fefcf9;
+  opacity: 1;
+  pointer-events: none;
+}
+.result .header {
+  justify-content: center;
+  display: flex;
+}
+.result .card-body {
+  justify-content: center;
+  display: block;
+  align-items: center;
+}

@@ -1,88 +1,11 @@
-const startButton = document.getElementById("startButton");
-const quizBox = document.querySelector(".quiz-box");
-const nextButton = document.querySelector(".nextButton");
-const optionList = document.querySelector(".option_list");
-const header = document.querySelector("header");
-const correctIcon = '<div class="icon"><i class="fas fa-check"></i></div>';
-const incorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>';
-
-function Question(questionId, questionTitle, options, correctAnswer) {
-  this.questionId = questionId;
-  this.questionTitle = questionTitle;
-  this.options = options;
-  this.correctAnswer = correctAnswer;
-}
-
-let questions = [
-  new Question(
-    1,
-    "Which one is Javascript package management application?",
-    { a: "Node.js", b: "Typescript", c: "Npm", d: "Nuget" },
-    "c"
-  ),
-  new Question(
-    2,
-    "Which of the following is a popular front-end framework for building user interfaces in JavaScript?",
-    { a: "AngularJS", b: "jQuery", c: "Ruby on Rails", d: "Django" },
-    "a"
-  ),
-  new Question(
-    3,
-    "Which JavaScript library is commonly used for data visualization?",
-    { a: "D3.js", b: "Bootstrap", c: "Ember.js", d: "React.js" },
-    "a"
-  ),
-  new Question(
-    4,
-    "Which of the following is a JavaScript runtime built on Chrome's V8 JavaScript engine?",
-    { a: "Node.js", b: "Express.js", c: "Ruby on Rails", d: "Django" },
-    "c"
-  ),
-  new Question(
-    5,
-    "Which JavaScript framework is known for its two-way data binding and MVVM architecture?",
-    { a: "AngularJS", b: "React.js", c: "Vue.js", d: "Backbone.js" },
-    "c"
-  ),
-  new Question(
-    6,
-    "Which of the following is a JavaScript package manager and registry?",
-    { a: "npm", b: "RubyGems", c: "NuGet", d: "PyPI" },
-    "c"
-  ),
-  new Question(
-    7,
-    "Which of the following is a JavaScript testing framework?",
-    { a: "Jest", b: "Jasmine", c: "mocha", d: "Karma" },
-    "c"
-  ),
-  new Question(
-    8,
-    "Which JavaScript library is commonly used for manipulating the Document Object Model (DOM)?",
-    { a: "jQuery", b: "AngularJS", c: "React.js", d: "Vue.js" },
-    "c"
-  ),
-  new Question(
-    9,
-    "Which of the following is a popular code editor for JavaScript development?",
-    {
-      a: "Visual Studio Code",
-      b: "Atom",
-      c: "Sublime Text",
-      d: "IntelliJ IDEA",
-    },
-    "c"
-  ),
-  new Question(
-    10,
-    "Which JavaScript library is known for its functional programming style and immutable data structures?",
-    { a: "Lodash", b: "Underscore.js", c: "Immutable.js", d: "Ramda" },
-    "c"
-  ),
-];
-
+const ui = new UI();
 let currentId = 0;
 let scorePoint = 0;
+
+const score = (score) => {
+  let tag = `<span class="score"><i class="fas fa-star" aria-hidden="true"></i> ${score}</span>`;
+  ui.scoreBoard.innerHTML = tag;
+};
 
 checkAnswer = function (answer) {
   return questions[currentId].correctAnswer === answer;
@@ -91,7 +14,7 @@ checkAnswer = function (answer) {
 const nextQuestion = () => {
   if (currentId !== questions[8].questionId) {
     currentId++;
-    showQuestion(currentId);
+    ui.showQuestion(currentId);
     currentId;
     questionNum(questions[currentId].questionId, questions.length);
   } else {
@@ -103,51 +26,30 @@ const questionNum = (questionNum, totalQuestions) => {
   document.querySelector(".quiz-box .questionNumber").innerHTML = tag;
 };
 
-const showQuestion = (id) => {
-  let title = `<span> ${questions[id].questionTitle}`;
-  let options = "";
-  nextButton.classList.remove("show");
-
-  for (let i in questions[id].options) {
-    options += `
-    <div class="option">
-                <span id="answerOption"><b>${i}</b>: ${questions[id].options[i]}</span>
-              </div>`;
-  }
-
-  document.querySelector(".question_text").innerHTML = title;
-  optionList.innerHTML = options;
-
-  const option = optionList.querySelectorAll(".option");
-
-  for (let selectItem of option) {
-    selectItem.setAttribute("onclick", "optionSelected(this)");
-  }
-};
-
-startButton.addEventListener("click", () => {
-  quizBox.classList.add("active");
-  showQuestion(currentId);
+ui.startButton.addEventListener("click", () => {
+  ui.quizBox.classList.add("active");
+  ui.showQuestion(currentId);
   questionNum(questions[currentId].questionId, questions.length);
+  score(scorePoint);
 });
 
-nextButton.addEventListener("click", nextQuestion);
+ui.nextButton.addEventListener("click", nextQuestion);
 
 const optionSelected = (option) => {
   let answer = option.querySelector("span b").textContent;
 
   if (checkAnswer(answer)) {
     option.classList.add("correct");
-
-    option.insertAdjacentHTML("beforeend", correctIcon);
+    option.insertAdjacentHTML("beforeend", ui.correctIcon);
+    score((scorePoint += 10));
   } else {
     option.classList.add("incorrect");
-    option.insertAdjacentHTML("beforeend", incorrectIcon);
+    option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
   }
 
-  for (let i = 0; i < optionList.children.length; i++) {
-    optionList.children[i].classList.add("disabled");
+  for (let i = 0; i < ui.optionList.children.length; i++) {
+    ui.optionList.children[i].classList.add("disabled");
   }
 
-  nextButton.classList.add("show");
+  ui.nextButton.classList.add("show");
 };
