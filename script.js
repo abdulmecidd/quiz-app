@@ -18,6 +18,7 @@ const nextQuestion = () => {
     currentId;
     questionNum(questions[currentId].questionId, questions.length);
   } else {
+    ui.nextButton.classList.remove("show");
   }
 };
 
