@@ -1,6 +1,10 @@
 const startButton = document.getElementById("startButton");
 const quizBox = document.querySelector(".quiz-box");
 const nextButton = document.querySelector(".nextButton");
+const optionList = document.querySelector(".option_list");
+
+const correctIcon = '<div class="icon"><i class="fas fa-check"></i></div>';
+const incorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>';
 
 function Question(questionId, questionTitle, options, correctAnswer) {
   this.questionId = questionId;
@@ -80,8 +84,8 @@ let questions = [
 let currentId = 0;
 let scorePoint = 0;
 
-Question.prototype.checkAnswer = function (answer) {
-  return console.log(this.correctAnswer === answer);
+checkAnswer = function (answer) {
+  return questions[currentId].correctAnswer === answer;
 };
 
 const nextQuestion = () => {
@@ -93,19 +97,25 @@ const nextQuestion = () => {
 };
 
 const showQuestion = (id) => {
-  const optionList = document.querySelector(".option_list");
-  const optionButton = document.querySelector("span");
-
   let title = `<span> ${questions[id].questionTitle}`;
   let options = "";
+  nextButton.classList.remove("show");
+
   for (let i in questions[id].options) {
     options += `
     <div class="option">
-                <span id="answerOption">${questions[id].options[i]}</span>
+                <span id="answerOption"><b>${i}</b>: ${questions[id].options[i]}</span>
               </div>`;
   }
+
   document.querySelector(".question_text").innerHTML = title;
   optionList.innerHTML = options;
+
+  const option = optionList.querySelectorAll(".option");
+
+  for (let selectItem of option) {
+    selectItem.setAttribute("onclick", "optionSelected(this)");
+  }
 };
 
 startButton.addEventListener("click", () => {
@@ -114,3 +124,21 @@ startButton.addEventListener("click", () => {
 });
 
 nextButton.addEventListener("click", nextQuestion);
+
+const optionSelected = (option) => {
+  let answer = option.querySelector("span b").textContent;
+
+  if (checkAnswer(answer)) {
+    option.classList.add("correct");
+    option.insertAdjacentHTML("beforeend", correctIcon);
+  } else {
+    option.classList.add("incorrect");
+    option.insertAdjacentHTML("beforeend", incorrectIcon);
+  }
+
+  for (let i = 0; i < optionList.children.length; i++) {
+    optionList.children[i].classList.add("disabled");
+  }
+
+  nextButton.classList.add("show");
+};

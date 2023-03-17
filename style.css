@@ -23,6 +23,11 @@
   font-weight: 700;
   font-size: 16px;
 }
+.nextButton:active {
+  background-color: #71562f;
+  color: #fefcf9;
+  border-radius: 4px;
+}
 .page {
   position: fixed;
   top: 50%;
@@ -89,6 +94,20 @@
   background-color: #ffbebe;
 }
 .quiz-box.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.quiz-box .option_list .option.disabled {
+  pointer-events: none;
+}
+
+.quiz-box .nextButton {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.quiz-box .nextButton.show {
   opacity: 1;
   pointer-events: auto;
 }
