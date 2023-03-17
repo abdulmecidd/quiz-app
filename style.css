@@ -14,7 +14,12 @@
   background-color: #f6e1c3;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
+}
+.quiz-box footer .questionNumber span {
+  color: #473419;
+  font-size: 16px;
+  font-weight: 600;
 }
 .nextButton {
   background-color: #f6e1c3;

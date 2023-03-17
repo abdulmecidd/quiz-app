@@ -2,7 +2,7 @@ const startButton = document.getElementById("startButton");
 const quizBox = document.querySelector(".quiz-box");
 const nextButton = document.querySelector(".nextButton");
 const optionList = document.querySelector(".option_list");
-
+const header = document.querySelector("header");
 const correctIcon = '<div class="icon"><i class="fas fa-check"></i></div>';
 const incorrectIcon = '<div class="icon"><i class="fas fa-times"></i></div>';
 
@@ -92,8 +92,15 @@ const nextQuestion = () => {
   if (currentId !== questions[8].questionId) {
     currentId++;
     showQuestion(currentId);
+    currentId;
+    questionNum(questions[currentId].questionId, questions.length);
   } else {
   }
+};
+
+const questionNum = (questionNum, totalQuestions) => {
+  let tag = `<span class="badge">${questionNum}/${totalQuestions}</span>`;
+  document.querySelector(".quiz-box .questionNumber").innerHTML = tag;
 };
 
 const showQuestion = (id) => {
@@ -121,6 +128,7 @@ const showQuestion = (id) => {
 startButton.addEventListener("click", () => {
   quizBox.classList.add("active");
   showQuestion(currentId);
+  questionNum(questions[currentId].questionId, questions.length);
 });
 
 nextButton.addEventListener("click", nextQuestion);
@@ -130,6 +138,7 @@ const optionSelected = (option) => {
 
   if (checkAnswer(answer)) {
     option.classList.add("correct");
+
     option.insertAdjacentHTML("beforeend", correctIcon);
   } else {
     option.classList.add("incorrect");
