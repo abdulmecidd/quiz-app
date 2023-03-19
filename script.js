@@ -4,6 +4,10 @@ const quiz = new Question(questions);
 let currentId = 0;
 let scorePoint = 0;
 
+const playAudio(url) {
+  new Audio(url).play();
+}
+
 const score = (score) => {
   let tag = `<span class="score"><i class="fas fa-star" aria-hidden="true"></i> ${score}</span>`;
   ui.scoreBoard.innerHTML = tag;
