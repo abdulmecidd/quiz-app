@@ -4,9 +4,9 @@ const quiz = new Question(questions);
 let currentId = 0;
 let scorePoint = 0;
 
-const playAudio(url) {
+const playAudio = (url) => {
   new Audio(url).play();
-}
+};
 
 const score = (score) => {
   let tag = `<span class="score"><i class="fas fa-star" aria-hidden="true"></i> ${score}</span>`;
@@ -51,9 +51,11 @@ const optionSelected = (option) => {
   if (checkAnswer(answer)) {
     option.classList.add("correct");
     option.insertAdjacentHTML("beforeend", ui.correctIcon);
+    playAudio("assets/correct.mp3");
     score((scorePoint += 10));
   } else {
     option.classList.add("incorrect");
+    playAudio("assets/wrong.mp3");
     option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
   }
 
