@@ -3,6 +3,7 @@ const quiz = new Question(questions);
 
 let currentId = 0;
 let scorePoint = 0;
+let counter;
 
 const playAudio = (url) => {
   new Audio(url).play();
@@ -22,6 +23,8 @@ const nextQuestion = () => {
     currentId++;
     ui.showQuestion(currentId);
     currentId;
+    clearInterval(counter);
+    startTimer(questions[currentId].solveTime);
     questionNum(questions[currentId].questionId, questions.length);
   } else {
     ui.quizBox.classList.remove("active");
@@ -30,6 +33,27 @@ const nextQuestion = () => {
   }
 };
 
+const startTimer = () => {
+  let lineWidth = 0;
+  counter = setInterval(timer, questions[currentId].solveTime);
+  function timer() {
+    lineWidth += 0.5;
+    ui.timeLine.style.width = lineWidth + "px";
+
+    if (lineWidth > 510) {
+      clearInterval(counter);
+      let answer = questions[currentId].correctAnswer;
+      for (let option of ui.optionList.children) {
+        if (option.querySelector("span b").textContent === answer) {
+          option.classList.add("correct");
+          option.insertAdjacentHTML("beforeend", ui.correctIcon);
+        }
+        option.classList.add("disabled");
+        ui.nextButton.classList.add("show");
+      }
+    }
+  }
+};
 const questionNum = (questionNum, totalQuestions) => {
   let tag = `<span class="badge">${questionNum}/${totalQuestions}</span>`;
   document.querySelector(".quiz-box .questionNumber").innerHTML = tag;
@@ -39,6 +63,7 @@ ui.startButton.addEventListener("click", () => {
   ui.quizBox.classList.add("active");
   ui.startButton.style.display = "none";
   ui.showQuestion(currentId);
+  startTimer(questions[currentId].solveTime);
   questionNum(questions[currentId].questionId, questions.length);
   score(scorePoint);
 });
@@ -52,10 +77,12 @@ const optionSelected = (option) => {
     option.classList.add("correct");
     option.insertAdjacentHTML("beforeend", ui.correctIcon);
     playAudio("assets/correct.mp3");
+    clearInterval(counter);
     score((scorePoint += 10));
   } else {
     option.classList.add("incorrect");
     playAudio("assets/wrong.mp3");
+    clearInterval(counter);
     option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
   }
 

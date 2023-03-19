@@ -51,6 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 .quiz-box header .title {
   font-size: 20px;
@@ -170,4 +171,12 @@
 .result.active {
   opacity: 1;
   pointer-events: auto;
+}
+.timeLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  /* width: 200px; 0 - 32em*/
+  background: #71562f;
 }

@@ -12,7 +12,8 @@ function UI() {
     (this.restartButton = document.querySelector(
       ".result footer .restart .restartButton"
     )),
-    (this.resultBody = document.querySelector(".result .resultBody"));
+    (this.resultBody = document.querySelector(".result .resultBody")),
+    (this.timeLine = document.querySelector(".timeLine"));
 }
 
 UI.prototype.showQuestion = function (id) {
