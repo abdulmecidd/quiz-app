@@ -16,38 +16,39 @@
     />
   </head>
   <body>
-    <div class="container">
-      <div class="rows page">
-        <div class="btn_start">
-          <button id="startButton" class="btn start_button">Start Quiz</button>
-        </div>
-        <div class="card quiz-box">
-          <header id="header" class="card-header">
-            <div class="title">Quiz App</div>
-            <div class="scoreBoard"></div>
-          </header>
-          <section class="card-body">
-            <div class="question_text"></div>
-            <div class="option_list"></div>
-          </section>
-          <footer class="card-footer footer">
-            <div class="questionNumber"></div>
-            <button class="nextButton">Next</button>
-          </footer>
-        </div>
-        <!-- <div class="card result">
-          <header id="header" class="card-header title">
-            <h1 class="header">Amazing!</h1>
-          </header>
-          <section class="card-body">
-            <h2 class="title">
-              Your score is <i class="fas fa-star" aria-hidden="true"></i>100
-            </h2>
-            <p class="whoAreU">are you<b> steve jobs?</b></p>
-          </section>
-        </div> -->
+    <div class="page">
+      <div class="btn_start">
+        <button id="startButton" class="btn start_button">Start Quiz</button>
+      </div>
+      <div class="card quiz-box">
+        <header id="header" class="card-header">
+          <div class="title">Quiz App</div>
+          <div class="scoreBoard"></div>
+        </header>
+        <section class="card-body">
+          <div class="question_text"></div>
+          <div class="option_list"></div>
+        </section>
+        <footer class="card-footer footer">
+          <div class="questionNumber"></div>
+          <button class="nextButton">Next</button>
+        </footer>
       </div>
     </div>
+    <div class="card result">
+      <header id="header" class="card-header title">
+        <h1 class="header"></h1>
+      </header>
+      <section class="card-body resultBody">
+        <!-- <img src="assets/elonmusk.png" class="whoAreUImg" />  -->
+      </section>
+      <footer class="card-footer resultFooter">
+        <div class="restart">
+          <button class="restartButton">Restart</button>
+        </div>
+      </footer>
+    </div>
+
     <script src="questions.js"></script>
     <script src="ui.js"></script>
     <script src="script.js"></script>

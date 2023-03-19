@@ -7,7 +7,12 @@ function UI() {
     (this.correctIcon = `<div class="icon"><i class="fas fa-check"></i></div>`),
     (this.incorrectIcon =
       '<div class="icon"><i class="fas fa-times"></i></div>'),
-    (this.scoreBoard = document.querySelector(".quiz-box header .scoreBoard"));
+    (this.scoreBoard = document.querySelector(".quiz-box header .scoreBoard")),
+    (this.resultScreen = document.querySelector(".result")),
+    (this.restartButton = document.querySelector(
+      ".result footer .restart .restartButton"
+    )),
+    (this.resultBody = document.querySelector(".result .resultBody"));
 }
 
 UI.prototype.showQuestion = function (id) {
@@ -29,4 +34,24 @@ UI.prototype.showQuestion = function (id) {
   for (let selectItem of option) {
     selectItem.setAttribute("onclick", "optionSelected(this)");
   }
+};
+
+UI.prototype.showResult = function (scorePoint) {
+  let tag = `<i class="fas fa-star" aria-hidden="true"></i>${scorePoint}`;
+  let person;
+  let correctImg = ``;
+  if (scorePoint === 100) {
+    person = `<p class="whoAreU">Are you<b> Elon Musk?</b></p>`;
+    correctImg = `<img src="assets/elonmusk.png" class="whoAreUImg" />`;
+  } else if (scorePoint < 100 && scorePoint > 60) {
+    correctImg = `<img src="assets/stevejobs.png" class="whoAreUImg" />`;
+    person = `<p class="whoAreU">Are you<b> steve jobs?</b></p>`;
+  } else if (scorePoint <= 60 && scorePoint >= 10) {
+    correctImg = `<img src="assets/billgates.png" class="whoAreUImg" />`;
+    person = `<p class="whoAreU">Are you<b> Bill Gates?</b></p>`;
+  } else if (scorePoint === 0) {
+    person = `<p class="whoAreU"> You should try <b> again. </b> 🥺`;
+  }
+  document.querySelector(".result header h1").innerHTML = tag;
+  this.resultBody.innerHTML = `${person} ${correctImg}`;
 };

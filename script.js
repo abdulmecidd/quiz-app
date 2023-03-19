@@ -1,4 +1,6 @@
 const ui = new UI();
+const quiz = new Question(questions);
+
 let currentId = 0;
 let scorePoint = 0;
 
@@ -18,7 +20,9 @@ const nextQuestion = () => {
     currentId;
     questionNum(questions[currentId].questionId, questions.length);
   } else {
-    ui.nextButton.classList.remove("show");
+    ui.quizBox.classList.remove("active");
+    ui.resultScreen.classList.add("active");
+    ui.showResult(scorePoint);
   }
 };
 
@@ -29,6 +33,7 @@ const questionNum = (questionNum, totalQuestions) => {
 
 ui.startButton.addEventListener("click", () => {
   ui.quizBox.classList.add("active");
+  ui.startButton.style.display = "none";
   ui.showQuestion(currentId);
   questionNum(questions[currentId].questionId, questions.length);
   score(scorePoint);
@@ -54,3 +59,11 @@ const optionSelected = (option) => {
 
   ui.nextButton.classList.add("show");
 };
+
+ui.restartButton.addEventListener("click", () => {
+  currentId = 0;
+  scorePoint = 0;
+  quiz.correctAnswer = 0;
+  ui.startButton.click();
+  ui.resultScreen.classList.remove("active");
+});
