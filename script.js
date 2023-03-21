@@ -5,6 +5,11 @@ let currentId = 0;
 let scorePoint = 0;
 let counter;
 
+const saveData = () => {
+  localStorage.setItem("currentId", JSON.stringify(currentId));
+  localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
+};
+
 const playAudio = (url) => {
   new Audio(url).play();
 };
@@ -26,6 +31,7 @@ const nextQuestion = () => {
     clearInterval(counter);
     startTimer(questions[currentId].solveTime);
     questionNum(questions[currentId].questionId, questions.length);
+    saveData();
   } else {
     ui.quizBox.classList.remove("active");
     ui.resultScreen.classList.add("active");
@@ -39,9 +45,10 @@ const startTimer = () => {
   function timer() {
     lineWidth += 0.5;
     ui.timeLine.style.width = lineWidth + "px";
-
     if (lineWidth > 510) {
       clearInterval(counter);
+      playAudio("assets/wrong.mp3");
+      localStorage.setItem("currentId", JSON.stringify(currentId + 1));
       let answer = questions[currentId].correctAnswer;
       for (let option of ui.optionList.children) {
         if (option.querySelector("span b").textContent === answer) {
@@ -54,24 +61,17 @@ const startTimer = () => {
     }
   }
 };
+
 const questionNum = (questionNum, totalQuestions) => {
   let tag = `<span class="badge">${questionNum}/${totalQuestions}</span>`;
   document.querySelector(".quiz-box .questionNumber").innerHTML = tag;
 };
 
-ui.startButton.addEventListener("click", () => {
-  ui.quizBox.classList.add("active");
-  ui.startButton.style.display = "none";
-  ui.showQuestion(currentId);
-  startTimer(questions[currentId].solveTime);
-  questionNum(questions[currentId].questionId, questions.length);
-  score(scorePoint);
-});
-
 ui.nextButton.addEventListener("click", nextQuestion);
 
 const optionSelected = (option) => {
   let answer = option.querySelector("span b").textContent;
+  localStorage.setItem("currentId", JSON.stringify(currentId + 1));
 
   if (checkAnswer(answer)) {
     option.classList.add("correct");
@@ -94,9 +94,35 @@ const optionSelected = (option) => {
 };
 
 ui.restartButton.addEventListener("click", () => {
+  localStorage.clear("currentId");
+  localStorage.clear("scorePoint");
   currentId = 0;
   scorePoint = 0;
   quiz.correctAnswer = 0;
   ui.startButton.click();
   ui.resultScreen.classList.remove("active");
 });
+
+if (parseInt(localStorage.getItem("currentId"))) {
+  window.addEventListener("load", () => {
+    ui.startButton.style.display = "none";
+    let id = parseInt(localStorage.getItem("currentId"));
+    let lastScore = parseInt(localStorage.getItem("scorePoint"));
+    currentId = id;
+    scorePoint = lastScore;
+    ui.showQuestion(currentId);
+    ui.quizBox.classList.add("active");
+    startTimer(questions[currentId].solveTime);
+    questionNum(questions[currentId].questionId, questions.length);
+    score(scorePoint);
+  });
+} else {
+  ui.startButton.addEventListener("click", () => {
+    ui.quizBox.classList.add("active");
+    ui.startButton.style.display = "none";
+    ui.showQuestion(currentId);
+    startTimer(questions[currentId].solveTime);
+    questionNum(questions[currentId].questionId, questions.length);
+    score(scorePoint);
+  });
+}
