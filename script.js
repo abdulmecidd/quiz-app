@@ -94,11 +94,11 @@ const optionSelected = (option) => {
 };
 
 ui.restartButton.addEventListener("click", () => {
-  localStorage.removeItem("currentId");
-  localStorage.removeItem("scorePoint");
   currentId = 0;
   scorePoint = 0;
   quiz.correctAnswer = 0;
+  localStorage.removeItem("currentId");
+  localStorage.removeItem("scorePoint");
   ui.startButton.click();
   ui.resultScreen.classList.remove("active");
 });
