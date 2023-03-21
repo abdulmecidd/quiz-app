@@ -94,8 +94,8 @@ const optionSelected = (option) => {
 };
 
 ui.restartButton.addEventListener("click", () => {
-  localStorage.clear("currentId");
-  localStorage.clear("scorePoint");
+  localStorage.removeItem("currentId");
+  localStorage.removeItem("scorePoint");
   currentId = 0;
   scorePoint = 0;
   quiz.correctAnswer = 0;
@@ -103,7 +103,10 @@ ui.restartButton.addEventListener("click", () => {
   ui.resultScreen.classList.remove("active");
 });
 
-if (parseInt(localStorage.getItem("currentId"))) {
+if (
+  parseInt(localStorage.getItem("currentId")) &&
+  parseInt(localStorage.getItem("scorePoint"))
+) {
   window.addEventListener("load", () => {
     ui.startButton.style.display = "none";
     let id = parseInt(localStorage.getItem("currentId"));
