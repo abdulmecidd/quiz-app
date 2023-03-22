@@ -79,10 +79,12 @@ const optionSelected = (option) => {
     playAudio("assets/correct.mp3");
     clearInterval(counter);
     score((scorePoint += 10));
-    saveData();
+    localStorage.setItem("currentId", JSON.stringify(currentId + 1));
+    localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
   } else {
     option.classList.add("incorrect");
-    saveData();
+    localStorage.setItem("currentId", JSON.stringify(currentId + 1));
+    localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
     playAudio("assets/wrong.mp3");
     clearInterval(counter);
     option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
@@ -108,7 +110,7 @@ ui.restartButton.addEventListener("click", () => {
 });
 
 if (
-  parseInt(localStorage.getItem("currentId")) !== null &&
+  parseInt(localStorage.getItem("currentId")) &&
   parseInt(localStorage.getItem("scorePoint")) !== null
 ) {
   window.addEventListener("load", () => {
