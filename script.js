@@ -43,9 +43,9 @@ const startTimer = () => {
   let lineWidth = 0;
   counter = setInterval(timer, questions[currentId].solveTime);
   function timer() {
-    lineWidth += 0.5;
-    ui.timeLine.style.width = lineWidth + "px";
-    if (lineWidth > 510) {
+    lineWidth += 0.1;
+    ui.timeLine.style.width = lineWidth + "%";
+    if (lineWidth > 99.99) {
       clearInterval(counter);
       playAudio("assets/wrong.mp3");
       localStorage.setItem("currentId", JSON.stringify(currentId + 1));
@@ -54,9 +54,13 @@ const startTimer = () => {
         if (option.querySelector("span b").textContent === answer) {
           option.classList.add("correct");
           option.insertAdjacentHTML("beforeend", ui.correctIcon);
+          localStorage.setItem("currentId", JSON.stringify(currentId + 1));
+          localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
         }
         option.classList.add("disabled");
         ui.nextButton.classList.add("show");
+        localStorage.setItem("currentId", JSON.stringify(currentId + 1));
+        localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
       }
     }
   }

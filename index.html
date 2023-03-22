@@ -16,40 +16,52 @@
     />
   </head>
   <body>
-    <div class="page">
-      <div class="btn_start">
-        <button id="startButton" class="btn start_button">Start Quiz</button>
-      </div>
-      <div class="card quiz-box">
-        <header id="header" class="card-header">
-          <div class="title">Quiz App</div>
-          <div class="timeLine"></div>
-          <div class="scoreBoard"></div>
-        </header>
-        <section class="card-body">
-          <div class="question_text"></div>
-          <div class="option_list"></div>
-        </section>
-        <footer class="card-footer footer">
-          <div class="questionNumber"></div>
-          <button class="nextButton">Next</button>
-        </footer>
-      </div>
-    </div>
-    <div class="card result">
-      <header id="header" class="card-header title">
-        <h1 class="header"></h1>
-      </header>
-      <section class="card-body resultBody">
-        <!-- <img src="assets/elonmusk.png" class="whoAreUImg" />  -->
-      </section>
-      <footer class="card-footer resultFooter">
-        <div class="restart">
-          <button class="restartButton">Restart</button>
+    <div class="container">
+      <div class="row">
+        <div class="page col-sm-12 col-md-4 col-xl-4">
+          <div class="card btn_start">
+            <header class="card-header">
+              <h1>Hello! welcome to the Quiz! 👋</h1>
+            </header>
+            <section class="card-body">
+              <button id="startButton" class="btn start_button">
+                Start Quiz!
+              </button>
+            </section>
+          </div>
+          <div class="card quiz-box">
+            <header id="header" class="card-header">
+              <div class="title">Quiz App</div>
+              <div class="timeLine"></div>
+              <div class="scoreBoard"></div>
+            </header>
+            <section class="card-body">
+              <div class="question_text"></div>
+              <div class="option_list"></div>
+            </section>
+            <footer class="card-footer footer">
+              <div class="questionNumber"></div>
+              <button class="nextButton">Next</button>
+            </footer>
+          </div>
         </div>
-      </footer>
+        <div
+          class="card result vertical-align-center col-sm-12 col-md-4 col-xl-4"
+        >
+          <header id="header" class="card-header title">
+            <h1 class="header"></h1>
+          </header>
+          <section class="card-body resultBody">
+            <!-- <img src="assets/elonmusk.png" class="whoAreUImg" />  -->
+          </section>
+          <footer class="card-footer resultFooter">
+            <div class="restart">
+              <button class="restartButton">Restart</button>
+            </div>
+          </footer>
+        </div>
+      </div>
     </div>
-
     <script src="questions.js"></script>
     <script src="ui.js"></script>
     <script src="script.js"></script>

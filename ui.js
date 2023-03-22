@@ -1,5 +1,6 @@
 function UI() {
-  (this.startButton = document.getElementById("startButton")),
+  (this.startButton = document.querySelector("#startButton")),
+    (this.startButton = document.querySelector(".btn_start")),
     (this.quizBox = document.querySelector(".quiz-box")),
     (this.nextButton = document.querySelector(".nextButton")),
     (this.optionList = document.querySelector(".option_list")),
