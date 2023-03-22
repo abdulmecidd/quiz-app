@@ -79,8 +79,10 @@ const optionSelected = (option) => {
     playAudio("assets/correct.mp3");
     clearInterval(counter);
     score((scorePoint += 10));
+    saveData();
   } else {
     option.classList.add("incorrect");
+    saveData();
     playAudio("assets/wrong.mp3");
     clearInterval(counter);
     option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
@@ -94,18 +96,20 @@ const optionSelected = (option) => {
 };
 
 ui.restartButton.addEventListener("click", () => {
+  localStorage.clear();
   currentId = 0;
   scorePoint = 0;
-  quiz.correctAnswer = 0;
-  localStorage.removeItem("currentId");
-  localStorage.removeItem("scorePoint");
-  ui.startButton.click();
   ui.resultScreen.classList.remove("active");
+  ui.showQuestion(currentId);
+  ui.quizBox.classList.add("active");
+  startTimer(questions[currentId].solveTime);
+  questionNum(questions[currentId].questionId, questions.length);
+  score(scorePoint);
 });
 
 if (
-  parseInt(localStorage.getItem("currentId")) &&
-  parseInt(localStorage.getItem("scorePoint"))
+  parseInt(localStorage.getItem("currentId")) !== null &&
+  parseInt(localStorage.getItem("scorePoint")) !== null
 ) {
   window.addEventListener("load", () => {
     ui.startButton.style.display = "none";
