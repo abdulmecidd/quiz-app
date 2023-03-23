@@ -1,5 +1,5 @@
 function UI() {
-  (this.startButton = document.querySelector("#startButton")),
+  (this.startScreen = document.querySelector(".start")),
     (this.startButton = document.querySelector(".btn_start")),
     (this.quizBox = document.querySelector(".quiz-box")),
     (this.nextButton = document.querySelector(".nextButton")),

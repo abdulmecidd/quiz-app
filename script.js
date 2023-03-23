@@ -119,6 +119,8 @@ if (
 ) {
   window.addEventListener("load", () => {
     ui.startButton.style.display = "none";
+    ui.startScreen.style.display = "none";
+
     let id = parseInt(localStorage.getItem("currentId"));
     let lastScore = parseInt(localStorage.getItem("scorePoint"));
     currentId = id;
@@ -133,6 +135,7 @@ if (
   ui.startButton.addEventListener("click", () => {
     ui.quizBox.classList.add("active");
     ui.startButton.style.display = "none";
+    ui.startScreen.style.display = "none";
     ui.showQuestion(currentId);
     startTimer(questions[currentId].solveTime);
     questionNum(questions[currentId].questionId, questions.length);

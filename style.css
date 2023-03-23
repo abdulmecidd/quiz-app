@@ -4,7 +4,31 @@ body {
   background: rgb(230, 241, 255);
 }
 
+.start header {
+  background-color: #5352ed;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.start section {
+  display: flex;
+  justify-content: center;
+}
 .btn_start {
+  vertical-align: center;
+  background-color: #3742fa;
+  color: #ffffff;
+  font-weight: 600;
+  border: 0;
+  border-radius: 8px;
+  height: 32px;
+}
+.btn_start:hover {
+  background-color: #2b2b89;
+}
+.btn_start:active {
+  background-color: #3742fa;
 }
 .quiz-box footer {
   background-color: #5352ed;
@@ -122,10 +146,12 @@ body {
 }
 
 .result {
-  transform: translate(0%, 100%);
-  background-color: #fefcf9;
   opacity: 0;
   pointer-events: none;
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 50%);
 }
 .result header {
   background-color: #5352ed;
