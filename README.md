@@ -17,13 +17,12 @@ Clone the repository or download the repository
 ```
 
 Open index.html in your favorite browser
-## Demo
-
-To try the application, please visit: https://quiz-app-psi-six.vercel.app/
-
   
 ## Screenshots
 
 ![Application Screenshot](https://i.ibb.co/SRr5DtT/ss1.png)
 
-  
+ ## Demo
+
+To try the application, please visit: https://quiz-app-psi-six.vercel.app/
+
