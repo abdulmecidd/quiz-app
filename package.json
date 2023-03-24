@@ -1,5 +1,9 @@
 {
   "devDependencies": {
-    "jest": "^29.5.0"
+    "mocha": "^10.2.0",
+    "mocha-jsdom": "^2.0.0"
+  },
+  "scripts": {
+    "test": "mocha"
   }
 }
