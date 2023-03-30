@@ -19,7 +19,7 @@ const score = (score) => {
   ui.scoreBoard.innerHTML = tag;
 };
 
-checkAnswer = function (answer) {
+const checkAnswer = (answer) => {
   return questions[currentId].correctAnswer === answer;
 };
 
@@ -29,6 +29,7 @@ const nextQuestion = () => {
     ui.showQuestion(currentId);
     currentId;
     clearInterval(counter);
+    localStorage.removeItem("counter");
     startTimer(questions[currentId].solveTime);
     questionNum(questions[currentId].questionId, questions.length);
     saveData();
@@ -38,13 +39,17 @@ const nextQuestion = () => {
     ui.showResult(scorePoint);
   }
 };
-
-const startTimer = () => {
+const startTimer = (time) => {
   let lineWidth = 0;
-  counter = setInterval(timer, questions[currentId].solveTime);
+  counter = setInterval(timer, time);
+  if (localStorage.getItem("counter")) {
+    lineWidth = parseInt(localStorage.getItem("counter"));
+    ui.timeLine.style.width = lineWidth + "%";
+  }
   function timer() {
     lineWidth += 0.1;
     ui.timeLine.style.width = lineWidth + "%";
+    localStorage.setItem("counter", lineWidth);
     if (lineWidth > 99.99) {
       clearInterval(counter);
       playAudio("assets/wrong.mp3");
@@ -115,12 +120,12 @@ ui.restartButton.addEventListener("click", () => {
 
 if (
   parseInt(localStorage.getItem("currentId")) &&
-  parseInt(localStorage.getItem("scorePoint")) !== null
+  parseInt(localStorage.getItem("scorePoint")) !== null &&
+  parseInt(localStorage.getItem("currentId")) !== 10
 ) {
   window.addEventListener("load", () => {
     ui.startButton.style.display = "none";
     ui.startScreen.style.display = "none";
-
     let id = parseInt(localStorage.getItem("currentId"));
     let lastScore = parseInt(localStorage.getItem("scorePoint"));
     currentId = id;

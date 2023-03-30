@@ -17,7 +17,7 @@ function UI() {
     (this.timeLine = document.querySelector(".timeLine"));
 }
 
-UI.prototype.showQuestion = function (id) {
+UI.prototype.showQuestion = (id) => {
   let title = `<span> ${questions[id].questionTitle}`;
   let options = "";
   ui.nextButton.classList.remove("show");
@@ -30,9 +30,7 @@ UI.prototype.showQuestion = function (id) {
 
   document.querySelector(".question_text").innerHTML = title;
   ui.optionList.innerHTML = options;
-
   const option = ui.optionList.querySelectorAll(".option");
-
   for (let selectItem of option) {
     selectItem.setAttribute("onclick", "optionSelected(this)");
   }
