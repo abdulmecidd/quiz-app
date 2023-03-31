@@ -37,6 +37,7 @@ UI.prototype.showQuestion = (id) => {
 };
 
 UI.prototype.showResult = function (scorePoint) {
+  localStorage.clear();
   let tag = `<i class="fas fa-star" aria-hidden="true"></i>${scorePoint}`;
   let person;
   let correctImg = ``;

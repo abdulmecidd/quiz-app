@@ -34,6 +34,7 @@ const nextQuestion = () => {
     questionNum(questions[currentId].questionId, questions.length);
     saveData();
   } else {
+    localStorage.clear();
     ui.quizBox.classList.remove("active");
     ui.resultScreen.classList.add("active");
     ui.showResult(scorePoint);
@@ -52,6 +53,7 @@ const startTimer = (time) => {
     localStorage.setItem("counter", lineWidth);
     if (lineWidth > 99.99) {
       clearInterval(counter);
+      localStorage.removeItem("counter");
       playAudio("assets/wrong.mp3");
       localStorage.setItem("currentId", JSON.stringify(currentId + 1));
       let answer = questions[currentId].correctAnswer;
@@ -61,11 +63,13 @@ const startTimer = (time) => {
           option.insertAdjacentHTML("beforeend", ui.correctIcon);
           localStorage.setItem("currentId", JSON.stringify(currentId + 1));
           localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
+          localStorage.removeItem("counter");
         }
         option.classList.add("disabled");
         ui.nextButton.classList.add("show");
         localStorage.setItem("currentId", JSON.stringify(currentId + 1));
         localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
+        localStorage.removeItem("counter");
       }
     }
   }
@@ -81,7 +85,6 @@ ui.nextButton.addEventListener("click", nextQuestion);
 const optionSelected = (option) => {
   let answer = option.querySelector("span b").textContent;
   localStorage.setItem("currentId", JSON.stringify(currentId + 1));
-
   if (checkAnswer(answer)) {
     option.classList.add("correct");
     option.insertAdjacentHTML("beforeend", ui.correctIcon);
@@ -90,6 +93,7 @@ const optionSelected = (option) => {
     score((scorePoint += 10));
     localStorage.setItem("currentId", JSON.stringify(currentId + 1));
     localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
+    localStorage.removeItem("counter");
   } else {
     option.classList.add("incorrect");
     localStorage.setItem("currentId", JSON.stringify(currentId + 1));
@@ -97,6 +101,7 @@ const optionSelected = (option) => {
     playAudio("assets/wrong.mp3");
     clearInterval(counter);
     option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
+    localStorage.removeItem("counter");
   }
 
   for (let i = 0; i < ui.optionList.children.length; i++) {
@@ -120,8 +125,7 @@ ui.restartButton.addEventListener("click", () => {
 
 if (
   parseInt(localStorage.getItem("currentId")) &&
-  parseInt(localStorage.getItem("scorePoint")) !== null &&
-  parseInt(localStorage.getItem("currentId")) !== 10
+  parseInt(localStorage.getItem("scorePoint")) !== null
 ) {
   window.addEventListener("load", () => {
     ui.startButton.style.display = "none";
@@ -130,6 +134,11 @@ if (
     let lastScore = parseInt(localStorage.getItem("scorePoint"));
     currentId = id;
     scorePoint = lastScore;
+    if (parseInt(localStorage.getItem("currentId")) === 10) {
+      ui.quizBox.classList.remove("active");
+      ui.resultScreen.classList.add("active");
+      ui.showResult(scorePoint);
+    }
     ui.showQuestion(currentId);
     ui.quizBox.classList.add("active");
     startTimer(questions[currentId].solveTime);
@@ -141,6 +150,7 @@ if (
     ui.quizBox.classList.add("active");
     ui.startButton.style.display = "none";
     ui.startScreen.style.display = "none";
+    localStorage.setItem("currentId", JSON.stringify(currentId + 1));
     ui.showQuestion(currentId);
     startTimer(questions[currentId].solveTime);
     questionNum(questions[currentId].questionId, questions.length);
