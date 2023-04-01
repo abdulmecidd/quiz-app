@@ -13,7 +13,17 @@ const saveData = () => {
 const playAudio = (url) => {
   new Audio(url).play();
 };
-
+const showCorrectAnswer = () => {
+  for (let option of ui.optionList.children) {
+    if (
+      option.querySelector("span b").textContent ===
+      questions[currentId].correctAnswer
+    ) {
+      option.classList.add("correct");
+      option.insertAdjacentHTML("beforeend", ui.correctIcon);
+    }
+  }
+};
 const score = (score) => {
   let tag = `<span class="score"><i class="fas fa-star" aria-hidden="true"></i> ${score}</span>`;
   ui.scoreBoard.innerHTML = tag;
@@ -100,6 +110,7 @@ const optionSelected = (option) => {
     localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
     playAudio("assets/wrong.mp3");
     clearInterval(counter);
+    showCorrectAnswer();
     option.insertAdjacentHTML("beforeend", ui.incorrectIcon);
     localStorage.removeItem("counter");
   }
