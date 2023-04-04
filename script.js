@@ -55,21 +55,6 @@ const checkAnswer = (answer) => {
   return questions[currentId].correctAnswer === answer;
 };
 
-const nextQuestion = () => {
-  if (order !== 11) {
-    ui.showQuestion(currentId);
-    clearInterval(counter);
-    localStorage.removeItem("counter");
-    startTimer(questions[currentId].solveTime);
-    questionNum(order++, questions.length);
-    saveData();
-  } else {
-    localStorage.clear();
-    ui.quizBox.classList.remove("active");
-    ui.resultScreen.classList.add("active");
-    ui.showResult(scorePoint);
-  }
-};
 const startTimer = (time) => {
   let lineWidth = 0;
   counter = setInterval(timer, time);
@@ -101,7 +86,7 @@ const startTimer = (time) => {
         ui.nextButton.classList.add("show");
         localStorage.setItem("currentId", JSON.stringify(currentId));
         localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
-        localStorage.setItem("order", JSON.stringify(order));
+        localStorage.setItem("order", JSON.stringify(order + 1));
         localStorage.removeItem("counter");
       }
     }
@@ -111,6 +96,24 @@ const startTimer = (time) => {
 const questionNum = (questionNum, totalQuestions) => {
   let tag = `<span class="badge">${questionNum}/${totalQuestions}</span>`;
   document.querySelector(".quiz-box .questionNumber").innerHTML = tag;
+};
+
+const nextQuestion = () => {
+  if (order !== 10) {
+    ui.showQuestion(currentId);
+    clearInterval(counter);
+    localStorage.removeItem("counter");
+    order++;
+    localStorage.setItem("order", order);
+    startTimer(questions[currentId].solveTime);
+    questionNum(order, questions.length);
+    saveData();
+  } else {
+    localStorage.clear();
+    ui.quizBox.classList.remove("active");
+    ui.resultScreen.classList.add("active");
+    ui.showResult(scorePoint);
+  }
 };
 
 ui.nextButton.addEventListener("click", nextQuestion);
@@ -127,7 +130,7 @@ const optionSelected = (option) => {
     createRandomQuestions();
     localStorage.setItem("currentId", JSON.stringify(currentId));
     localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
-    localStorage.setItem("order", JSON.stringify(order));
+    localStorage.setItem("order", JSON.stringify(order + 1));
 
     localStorage.removeItem("counter");
   } else {
@@ -136,7 +139,7 @@ const optionSelected = (option) => {
     createRandomQuestions();
     localStorage.setItem("currentId", JSON.stringify(currentId));
     localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
-    localStorage.setItem("order", JSON.stringify(order));
+    localStorage.setItem("order", JSON.stringify(order + 1));
 
     playAudio("assets/wrong.mp3");
     clearInterval(counter);
@@ -200,7 +203,7 @@ if (
     localStorage.setItem("order", JSON.stringify(order));
     localStorage.setItem("scorePoint", JSON.stringify(scorePoint));
     startTimer(questions[currentId].solveTime);
-    questionNum(order++, questions.length);
+    questionNum(order, questions.length);
     score(scorePoint);
   });
 }
